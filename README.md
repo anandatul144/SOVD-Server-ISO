@@ -236,9 +236,7 @@ cd generated-python/server && pip install -r requirements.txt && python -m sovd_
 # Test endpoint
 curl http://localhost:8080/v1/components
 ```
-
-
-Yes, containerizing the SOVD server is straightforward. Here's how:
+To run SOVD Server in a container:
 
 ## Dockerfile
 
