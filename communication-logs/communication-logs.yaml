@@ -1,0 +1,132 @@
+openapi: 3.1.0
+
+# ASAM SOVD V1.1.0
+
+# © by ASAM e.V., 2024
+
+# SOVD API for Communication Logging
+# This file is informative. The normative REST API definition is published in the specification.
+
+# Any use is limited to the scope described in the ASAM license terms.
+# See http://www.asam.net/license.html  for further details.
+
+info:
+  title: SOVD API for Communication Logging
+  license:
+    name: Licensing Terms for Grant of Rights to Use ASAM Products
+    url: https://www.asam.net/license/
+  version: 1.1.0
+
+paths:
+  
+  /{entity-collection}/{entity-id}/communication-logs:
+    get:
+      tags:
+        - communication-logs
+      description: >-
+        Provides the identifiers of all configured communication logs. Details 
+        on a communication log can be retrieved with Get status of 
+        communication log.
+      parameters:
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityCollection
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityId
+      responses:
+        "200":
+          $ref: responses.yaml#/components/responses/CommunicationLogList
+        default:
+          $ref: ../commons/responses.yaml#/components/responses/GenericError
+
+    post:
+      tags:
+        - communication-logs
+      description: >-
+        This method uploads a configuration for a communication log to the SOVD
+        server. As the configuration as well as the format of the communication
+        log is OEM-specific, neither the content of the request body nor the 
+        format of the communication log is defined by the API. The configuration 
+        may include communication patterns and channels to be logged.
+        The communication log does not start immediately after uploading the 
+        configuration but has to be controlled by the method "Activate and 
+        deactivate communication log".  
+      parameters:
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityCollection
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityId
+        - $ref: parameters.yaml#/components/parameters/stream
+      requestBody:
+        $ref: requests.yaml#/components/requestBodies/ConfigureCommunicationLogging
+      responses:
+        "200":
+          $ref: responses.yaml#/components/responses/CommunicationLogConfiguration
+        default:
+          $ref: ../commons/responses.yaml#/components/responses/GenericError
+  
+  /{entity-collection}/{entity-id}/communication-logs/{communication-log-id}:
+    get:
+      tags:
+        - communication-logs
+      description: >-
+        Provides information about the current status of the communication log.
+      parameters:
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityCollection
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityId
+        - $ref: parameters.yaml#/components/parameters/CommunicationLogId
+      responses:
+        "200":
+          $ref: responses.yaml#/components/responses/CommunicationLogDetails
+        default:
+          $ref: ../commons/responses.yaml#/components/responses/GenericError
+
+    put:
+      tags:
+        - communication-logs
+      description: >-
+        Activates or deactivates the previously configured communication log. 
+        The action "activate" activates the recording of the communication log. 
+        If the communication defined by this configuration is already being 
+        recorded, an error code is returned. With the action "deactivate", the 
+        current communication recording is deactivated. If the communication 
+        defined by this configuration is already deactivated, an error code is 
+        returned.  A deactivated recording can be activated again.
+        Depending on the configuration activating a communication log does not 
+        imply that data is immediately recorded. Instead, the recording may 
+        only start when certain trigger defined in the configuration activates 
+        the recording of the communication.
+      parameters:
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityCollection
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityId
+        - $ref: parameters.yaml#/components/parameters/CommunicationLogId
+      requestBody:
+        $ref: requests.yaml#/components/requestBodies/DeActivateCommunicationLogging
+      responses:
+        "204":
+          description: >-
+            The request was successful. If the configured communication log has
+            been deactivated, the log can be accessed via the URL provided when
+            the communication log was configured.
+        "409":
+          description: >-
+            A communication log has already been activated or deactivated
+            (depending on the requested action) for this identifier.
+        default:
+          $ref: ../commons/responses.yaml#/components/responses/GenericError
+
+    delete:
+      tags:
+        - communication-logs
+      description: >-
+        Delete the complete communication log identified by the given
+        identifier. This includes the configuration as well as the recorded log 
+        if the query parameter delete_log is true.
+      parameters:
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityCollection
+        - $ref: ../commons/parameters.yaml#/components/parameters/EntityId
+        - $ref: parameters.yaml#/components/parameters/CommunicationLogId
+        - $ref: parameters.yaml#/components/parameters/deleteLog
+      responses:
+        "204":
+          description: >-
+            The request was successful and the configuration (including the 
+            logged communication if the query parameter delete_log was true) 
+            has been deleted.
+        default:
+          $ref: ../commons/responses.yaml#/components/responses/GenericError

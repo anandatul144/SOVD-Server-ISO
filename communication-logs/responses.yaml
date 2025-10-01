@@ -1,0 +1,121 @@
+openapi: 3.1.0
+
+# ASAM SOVD V1.1.0
+
+# © by ASAM e.V., 2024
+
+# SOVD API responses for Communication Logging
+# This file is informative. The normative REST API definition is published in the specification.
+
+# Any use is limited to the scope described in the ASAM license terms.
+# See http://www.asam.net/license.html  for further details.
+
+info:
+  title: SOVD API responses for Communication Logging
+  license:
+    name: Licensing Terms for Grant of Rights to Use ASAM Products
+    url: https://www.asam.net/license/
+  version: 1.1.0
+  description: Definition of responses for Communication Logging
+paths: {}
+components:
+
+  responses:
+    # ------------------------------------------------------------------------
+    CommunicationLogList:
+      description: >-
+        The request was successful.
+      content:
+        application/json:
+          schema:
+            type: array
+            items: 
+              type: string
+              description: >-
+                The identifiers of defined communication logs.
+
+    # ------------------------------------------------------------------------
+    CommunicationLogConfiguration:
+      description: The request was successful.
+      headers:
+        Location:
+          description: >-
+            The response includes the Location header to redirect the SOVD 
+            client to the created resource for requesting the status of the 
+            communication log:
+            Location: {base_uri}/{entity-path}/communication-logs/{communication-log-id}
+
+          schema:
+            type: string
+            format: uri-reference
+      content:
+        application/json:
+          schema:
+            $ref: responses.yaml#/components/schemas/CommunicationLog
+
+    # ------------------------------------------------------------------------
+    CommunicationLogDetails:
+      description: The request was successful.
+      content:
+        application/json:
+          schema:
+            $ref: responses.yaml#/components/schemas/CommunicationLog
+
+  schemas:
+    # ------------------------------------------------------------------------
+    CommunicationLog:
+      description: >-
+        Schema returned for a communication log
+      type: object
+      required:
+        - id
+        - status
+        - stream
+        - log
+      properties:
+        id:
+          type: string
+          description: >-
+            The identifier used to reference the prepared communication log in 
+            subsequent requests, e.g., for deactivating the log.
+        status:
+          ComLogStatus:
+            type: string
+            enum:
+              - active
+              - inactive
+            description: Status of the communication logging
+        stream:
+          type: boolean
+          description: >-
+            If true, the communication log has been activated in streaming ode. 
+            Otherwise, the communication log is stored by the SOVD server and 
+            shall be retrieved in a separate step.
+        log:
+          type: string
+          format: uri-reference
+          description: >-
+            Provides the URI for downloading the communication log as bulk data
+            or as a stream (in case a streaming configuration was created).
+            The communication log format for the streaming and non-streaming 
+            mode is OEM-specific.
+        activated:
+          type: string
+          format: date-time
+          description: >-
+            Timestamp when the communication log has been activated via the API 
+            the last time.
+            Condition: Only available when the log has been activated.
+        deactivated:
+          type: string
+          format: date-time
+          description: >-
+            Timestamp when the communication log has been deactivated via the
+            API the last time.
+            Condition: Only available when the log has been deactivated.
+      example:
+        id: "ea0d92dd-0956-43ca-a41f-f1c892fcf314"
+        status: active
+        stream: false
+        log: "{base_uri}/components/PowerSteering/bulk-data/communication-logs/ea0d92ed-0a56-43ba-a51f-f1c492ecd314"
+        activated: "2022-12-20T00:00:04.387819Z"

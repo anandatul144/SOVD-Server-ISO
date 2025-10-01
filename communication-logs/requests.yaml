@@ -1,0 +1,70 @@
+openapi: 3.1.0
+
+# ASAM SOVD V1.1.0
+
+# © by ASAM e.V., 2024
+
+# SOVD API request bodies for Bulk Data Resource
+# This file is informative. The normative REST API definition is published in the specification.
+
+
+# Any use is limited to the scope described in the ASAM license terms.
+# See http://www.asam.net/license.html  for further details.
+
+info:
+  title: SOVD API for Communication Logging
+  license:
+    name: Licensing Terms for Grant of Rights to Use ASAM Products
+    url: https://www.asam.net/license/
+  version: 1.1.0
+
+
+paths: {}
+
+components:
+  requestBodies:
+    
+    # ------------------------------------------------------------------------
+    ConfigureCommunicationLogging:
+      description: >-
+        The request body for this method is OEM-specific.
+      required: true
+      content:
+        '*/*':
+          schema:
+            type: string
+            format: binary
+            description: >-
+              The content of the request body is OEM specific. Depending on the
+              implementation, the transferred body can use multipart/signed, 
+              application/octet-stream or any other content type.
+          examples:
+            FormData:
+              description: >-
+                Example using "Content-Type: multipart/form-data; boundary=formdataboundary"
+              value: >-
+                --formdataboundary
+                Content-Disposition: form-data;name="BcmLogging";file-name="bcm-logging.cfg"
+                Content-Type: application/octet-stream
+                [File content]
+                --formdataboundary
+
+    # ------------------------------------------------------------------------
+    DeActivateCommunicationLogging:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - action
+            properties:
+                action:
+                  type: string
+                  enum:
+                    - activate
+                    - deactivate
+                  description: Control of the communication log.
+            example:
+              action: "activate"
+

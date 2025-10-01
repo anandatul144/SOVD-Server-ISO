@@ -1,0 +1,67 @@
+$id: https://asam.net/standards/diagnostics/sovd/v1.1/meta/base
+$schema: https://json-schema.org/draft/2020-12/schema
+
+title: SOVD vocabulary for defining the unit of a simple type
+description: >
+  This vocabulary defines additional SOVD properties which are not covered
+  by the Open API or JSON schemas.
+
+$dynamicAnchor: meta
+
+$vocabulary:
+  https://asam.net/standards/diagnostics/sovd/v1.1/vocab/base: true
+
+properties:
+  x-sovd-unit:
+    description: > 
+      "x-sovd-unit" defines the unit of a value like "km/h". The unit 
+      definition contains the display name for the unit and how is expressed 
+      using SI units.
+    type: object
+    properties:
+      display_name:
+        type: string
+      reference:
+        type: string
+      factor_si_to_unit:
+        type: number
+      offset_si_to_unit:
+        type: number
+      is_relative:
+        type: boolean
+      physical_dimension:
+        type: object
+        properties:
+          id:
+            type: string  
+          length:
+            type: integer
+          mass:
+            type: integer
+          time:
+            type: integer
+          current:
+            type: integer
+          temperature:
+            type: integer
+          molar_amount:
+            type: integer
+          luminous_intensity:
+            type: integer
+          plane_angle:
+            type: integer
+    required: [ display_name, factor_si_to_unit ]
+    example:
+        display_name: km/h
+        reference: speed_in_km_per_h
+        factor_si_to_unit: 3.6
+        physical_dimension:
+          id: speed
+          length: 1
+          time: -1
+  x-sovd-translation-id:
+    description: >
+      Defines the translation identifier for an element.
+    type: string
+    example:
+      x-sovd-translation-id: 145a70cc-b361-49c7-86b4-55e09468136c

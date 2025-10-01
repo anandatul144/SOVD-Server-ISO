@@ -1,0 +1,69 @@
+openapi: 3.1.0
+
+# ASAM SOVD V1.0.0
+
+# © by ASAM e.V., 2022
+
+# SOVD API request bodies for Locking Entities
+# This file is informative. The normative REST API definition is published in the specification.
+
+
+# Any use is limited to the scope described in the ASAM license terms. 
+# See http://www.asam.net/license.html  for further details.
+
+info:
+  title: SOVD API request bodies for Locking Entities
+  license: 
+    name: Licensing Terms for Grant of Rights to Use ASAM Products
+    url: https://www.asam.net/license/
+  version: 1.0.0
+  description: >-
+    Definition of request bodies for Locking Entities
+
+paths: {}
+
+components:
+  requestBodies:
+
+    # ------------------------------------------------------------------------
+    LockRequest:
+      description: >-
+        Request body - Acquire a lock on an entity
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - lock_expiration
+            properties:
+              lock_expiration:
+                type: number
+                format: int32
+                description: >-
+                  Defines after how many seconds the lock expires and should therefore be
+                  automatically released by the SOVD server.
+                  The capability description shall define the maximum expiration time.
+              break_lock:
+                type: boolean
+                description: >-
+                  If true and a lock for the requested scope already exists, 
+                  the lock shall be broken, i.e., the existing lock is removed
+                  and the requesting client receives the lock. Removing the 
+                  lock implies that the original SOVD client also loses the 
+                  lock for scopes which are not requested by the client 
+                  breaking the lock.
+                default: false
+              scopes:
+                type: array
+                items:
+                  type: string
+                description: >-
+                  List of scopes for which the lock is requested.
+                  If missing, a lock for all scopes defined for the entity is 
+                  requested, or for the whole entity in case no scopes are 
+                  defined.
+            example: 
+              lock_expiration: 1800
+              break_lock: false
+              scopes: [ "control" ]

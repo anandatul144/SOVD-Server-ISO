@@ -1,0 +1,53 @@
+openapi: 3.1.0
+
+# ASAM SOVD V1.1.0
+
+# © by ASAM e.V., 2024
+
+# SOVD API Parameter Definitions for Logging
+# This file is informative. The normative REST API definition is published in the specification.
+
+# Any use is limited to the scope described in the ASAM license terms.
+# See http://www.asam.net/license.html  for further details.
+
+info:
+  title: SOVD API Parameter Definitions for Communication Logging
+  license:
+    name: Licensing Terms for Grant of Rights to Use ASAM Products
+    url: https://www.asam.net/license/
+  version: 1.1.0
+  description: Definition of Parameters for Communication Logging
+paths: {}
+
+components:
+  parameters:
+
+    stream:
+      name: stream
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: >-
+        Specifies whether the communication log should be streamed to the 
+        client or not. The default is false.
+
+    CommunicationLogId:
+      name: communication-log-id
+      in: path
+      required: true
+      description: >-
+        Identifier for the communication log created by the SOVD server.
+      schema:
+        type: string
+
+    deleteLog:
+      name: delete_log
+      in: query
+      schema:
+        type: boolean
+      description: >- 
+        Specifies whether the logged communication should be deleted or not. If 
+        false, the logged communication is not deleted, but only the 
+        configuration is deleted. The client is responsible for deleting the 
+        communication log via the bulk-data API. The default is true.
