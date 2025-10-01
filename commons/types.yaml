@@ -38,7 +38,8 @@ components:
         - type: object
 
     OpenApiSchema:
-      $ref: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.yaml#/$defs/schema
+      type: object
+      additionalProperties: true
       description: >-
         The schema definition of the response.
         Condition: Only provided if the query parameter include-schema is true.

@@ -1,0 +1,8 @@
+# Add to .gitignore:
+generated-python/
+.SOVDServer/
+*.pyc
+__pycache__/
+*.egg-info/
+bundle_spec.py
+test_client.py

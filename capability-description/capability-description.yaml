@@ -70,4 +70,5 @@ components:
       content:
         application/json:
           schema:
-            $ref: https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.yaml
+            type: object
+            additionalProperties: true
