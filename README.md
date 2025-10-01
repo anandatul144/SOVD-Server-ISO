@@ -236,3 +236,116 @@ cd generated-python/server && pip install -r requirements.txt && python -m sovd_
 # Test endpoint
 curl http://localhost:8080/v1/components
 ```
+
+
+Yes, containerizing the SOVD server is straightforward. Here's how:
+
+## Dockerfile
+
+Create `Dockerfile` in `generated-python/server/`:
+
+```dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY sovd_api/ ./sovd_api/
+
+# Expose port
+EXPOSE 8080
+
+# Run the server
+CMD ["python", "-m", "sovd_api"]
+```
+
+## Build and Run
+
+```bash
+cd generated-python/server
+
+# Docker
+docker build -t sovd-server .
+docker run -p 8080:8080 sovd-server
+
+# Podman
+podman build -t sovd-server .
+podman run -p 8080:8080 sovd-server
+```
+
+## Production-Ready Dockerfile
+
+For better performance, use a production WSGI server:
+
+```dockerfile
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt gunicorn
+
+# Copy application
+COPY sovd_api/ ./sovd_api/
+
+EXPOSE 8080
+
+# Use Gunicorn for production
+CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "4", "sovd_api.__main__:app"]
+```
+
+However, you'll need to modify `sovd_api/__main__.py` to expose the `app` object:
+
+```python
+# Add at the end of __main__.py
+app = connexionapp.app  # Expose Flask app for Gunicorn
+```
+
+## Docker Compose (optional)
+
+If you want to add a database or other services:
+
+```yaml
+# docker-compose.yml
+version: '3.8'
+
+services:
+  sovd-server:
+    build: ./generated-python/server
+    ports:
+      - "8080:8080"
+    environment:
+      - FLASK_ENV=production
+    volumes:
+      - ./data:/app/data  # For persistent storage
+
+  # Add database, etc.
+  # postgres:
+  #   image: postgres:15
+  #   environment:
+  #     POSTGRES_PASSWORD: password
+```
+
+Run with:
+```bash
+docker-compose up
+```
+
+## Test the Container
+
+```bash
+# Once running
+curl http://localhost:8080/v1/components
+```
+
+The containerized approach is cleaner for deployment and ensures consistent environments across development and production.
