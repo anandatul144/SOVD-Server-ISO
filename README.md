@@ -345,12 +345,10 @@ EXPOSE 8080
 CMD ["python", "-m", "sovd_api"]
 ```
 
-Build and run:
-```bash
-docker build -t sovd-server .
-docker run -p 8080:8080 sovd-server
-```
 
+
+Kubernetes deployment: 
+```dockerfile
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -383,6 +381,13 @@ spec:
       - name: vehicle-fs
         persistentVolumeClaim:
           claimName: vehicle-fs-pvc
+```
+
+Build and run:
+```bash
+docker build -t sovd-server .
+docker run -p 8080:8080 sovd-server
+```
 
 ## Version Control
 
