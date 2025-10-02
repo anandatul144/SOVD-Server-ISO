@@ -1,0 +1,339 @@
+Target-mock-FS/
+├── adas_linux
+│   ├── camera
+│   │   ├── opt
+│   │   │   └── perception
+│   │   │       ├── calibration
+│   │   │       │   └── camera_intrinsics.yaml
+│   │   │       ├── logs
+│   │   │       │   └── perception.log
+│   │   │       └── models
+│   │   │           ├── model_metadata.json
+│   │   │           └── yolov8_traffic.onnx
+│   │   └── var
+│   │       └── log
+│   │           └── camera_driver.log
+│   ├── goldbox
+│   │   ├── opt
+│   │   │   ├── adas_fusion
+│   │   │   │   ├── config
+│   │   │   │   ├── logs
+│   │   │   │   │   └── fusion.log
+│   │   │   │   └── maps
+│   │   │   │       └── region_eu_central.bin
+│   │   │   ├── ids_hids_goldbox
+│   │   │   │   └── alerts
+│   │   │   │       └── goldbox_hids.json
+│   │   │   ├── ids_manager
+│   │   │   │   ├── config
+│   │   │   │   │   └── manager.conf
+│   │   │   │   ├── correlation_rules
+│   │   │   │   │   ├── rule_001_port_scan.yaml
+│   │   │   │   │   ├── rule_002_dos_pattern.yaml
+│   │   │   │   │   └── rule_003_unauthorized_access.yaml
+│   │   │   │   ├── incidents
+│   │   │   │   │   ├── incident_20241001_report.json
+│   │   │   │   │   └── incident_20241002_report.json
+│   │   │   │   └── logs
+│   │   │   │       └── ids_manager.log
+│   │   │   └── ossec
+│   │   │       ├── logs
+│   │   │       │   └── alerts
+│   │   │       │       └── alerts.json
+│   │   │       ├── rules
+│   │   │       │   ├── local_rules.xml
+│   │   │       │   └── syscheck.xml
+│   │   │       └── syscheck
+│   │   │           └── syscheck.db
+│   │   └── var
+│   │       └── log
+│   │           └── system.log
+│   └── lidar
+│       ├── opt
+│       │   └── lidar_driver
+│       │       ├── calibration
+│       │       │   └── lidar_extrinsics.yaml
+│       │       ├── logs
+│       │       │   └── lidar.log
+│       │       └── recordings
+│       │           └── pointcloud_20241001.bag
+│       └── var
+│           └── log
+├── autosar_adaptive
+│   └── mab
+│       ├── opt
+│       │   ├── actuator_control
+│       │   │   ├── config
+│       │   │   │   └── actuator.conf
+│       │   │   └── logs
+│       │   │       └── actuator.log
+│       │   └── canids
+│       │       ├── captures
+│       │       │   └── can_dump_20241001.asc
+│       │       ├── logs
+│       │       │   └── can_anomalies.log
+│       │       └── rules
+│       │           └── can_whitelist.dbc
+│       └── runtime
+│           ├── {fault_memory}
+│           └── signals.arxml
+├── autosar_classic
+│   ├── accelerator
+│   │   ├── calibration
+│   │   │   └── accel_params.a2l
+│   │   └── fault_memory
+│   │       └── dtc_snapshot.bin
+│   ├── brakes
+│   │   ├── calibration
+│   │   │   └── brake_params.a2l
+│   │   ├── fault_memory
+│   │   │   ├── dtc_snapshot.bin
+│   │   │   └── freeze_frames.dat
+│   │   └── runtime
+│   │       └── signals.hex
+│   ├── gearbox
+│   │   ├── calibration
+│   │   │   └── gear_params.a2l
+│   │   └── fault_memory
+│   │       └── dtc_snapshot.bin
+│   └── wheels
+│       ├── calibration
+│       │   └── wheel_params.a2l
+│       └── fault_memory
+│           └── dtc_snapshot.bin
+├── mock_filesystems
+│   ├── adas_linux
+│   │   ├── camera
+│   │   │   ├── opt
+│   │   │   │   └── perception
+│   │   │   │       ├── calibration
+│   │   │   │       │   └── camera_intrinsics.yaml
+│   │   │   │       ├── logs
+│   │   │   │       │   └── perception.log
+│   │   │   │       └── models
+│   │   │   │           ├── model_metadata.json
+│   │   │   │           └── yolov8_traffic.onnx
+│   │   │   └── var
+│   │   │       └── log
+│   │   │           └── camera_driver.log
+│   │   ├── goldbox
+│   │   │   ├── opt
+│   │   │   │   ├── adas_fusion
+│   │   │   │   │   ├── config
+│   │   │   │   │   ├── logs
+│   │   │   │   │   │   └── fusion.log
+│   │   │   │   │   └── maps
+│   │   │   │   │       └── region_eu_central.bin
+│   │   │   │   ├── ids_hids_goldbox
+│   │   │   │   │   └── alerts
+│   │   │   │   │       └── goldbox_hids.json
+│   │   │   │   ├── ids_manager
+│   │   │   │   │   ├── config
+│   │   │   │   │   │   └── manager.conf
+│   │   │   │   │   ├── correlation_rules
+│   │   │   │   │   │   ├── rule_001_port_scan.yaml
+│   │   │   │   │   │   ├── rule_002_dos_pattern.yaml
+│   │   │   │   │   │   └── rule_003_unauthorized_access.yaml
+│   │   │   │   │   ├── incidents
+│   │   │   │   │   │   ├── incident_20241001_report.json
+│   │   │   │   │   │   └── incident_20241002_report.json
+│   │   │   │   │   └── logs
+│   │   │   │   │       └── ids_manager.log
+│   │   │   │   └── ossec
+│   │   │   │       ├── logs
+│   │   │   │       │   └── alerts
+│   │   │   │       │       └── alerts.json
+│   │   │   │       ├── rules
+│   │   │   │       │   ├── local_rules.xml
+│   │   │   │       │   └── syscheck.xml
+│   │   │   │       └── syscheck
+│   │   │   │           └── syscheck.db
+│   │   │   └── var
+│   │   │       └── log
+│   │   │           └── system.log
+│   │   └── lidar
+│   │       ├── opt
+│   │       │   └── lidar_driver
+│   │       │       ├── calibration
+│   │       │       │   └── lidar_extrinsics.yaml
+│   │       │       ├── logs
+│   │       │       │   └── lidar.log
+│   │       │       └── recordings
+│   │       │           └── pointcloud_20241001.bag
+│   │       └── var
+│   │           └── log
+│   ├── autosar_adaptive
+│   │   └── mab
+│   │       ├── opt
+│   │       │   ├── actuator_control
+│   │       │   │   ├── config
+│   │       │   │   │   └── actuator.conf
+│   │       │   │   └── logs
+│   │       │   │       └── actuator.log
+│   │       │   └── canids
+│   │       │       ├── captures
+│   │       │       │   └── can_dump_20241001.asc
+│   │       │       ├── logs
+│   │       │       │   └── can_anomalies.log
+│   │       │       └── rules
+│   │       │           └── can_whitelist.dbc
+│   │       └── runtime
+│   │           ├── fault_memory
+│   │           │   └── dtc_snapshot.bin
+│   │           └── signals.arxml
+│   ├── autosar_classic
+│   │   ├── accelerator
+│   │   │   ├── calibration
+│   │   │   │   └── accel_params.a2l
+│   │   │   └── fault_memory
+│   │   │       └── dtc_snapshot.bin
+│   │   ├── brakes
+│   │   │   ├── calibration
+│   │   │   │   └── brake_params.a2l
+│   │   │   ├── fault_memory
+│   │   │   │   ├── dtc_snapshot.bin
+│   │   │   │   └── freeze_frames.dat
+│   │   │   └── runtime
+│   │   │       └── signals.hex
+│   │   ├── gearbox
+│   │   │   ├── calibration
+│   │   │   │   └── gear_params.a2l
+│   │   │   └── fault_memory
+│   │   │       └── dtc_snapshot.bin
+│   │   └── wheels
+│   │       ├── calibration
+│   │       │   └── wheel_params.a2l
+│   │       └── fault_memory
+│   │           └── dtc_snapshot.bin
+│   └── posix_comms
+│       ├── ecu1
+│       │   └── var
+│       │       └── log
+│       │           └── application.log
+│       ├── ecu2
+│       │   └── var
+│       │       └── log
+│       │           └── application.log
+│       ├── switch
+│       │   ├── opt
+│       │   │   ├── ids_nids
+│       │   │   │   ├── alerts
+│       │   │   │   │   └── nids_alerts.json
+│       │   │   │   └── rules
+│       │   │   │       └── switch_rules.xml
+│       │   │   └── suricata
+│       │   │       ├── captures
+│       │   │       │   └── suspicious_20241001.pcap
+│       │   │       ├── logs
+│       │   │       │   ├── eve.json
+│       │   │       │   ├── fast.log
+│       │   │       │   └── stats.log
+│       │   │       └── rules
+│       │   │           ├── custom.rules
+│       │   │           ├── emerging-threats.rules
+│       │   │           └── local.rules
+│       │   └── var
+│       │       └── log
+│       │           └── network.log
+│       ├── ubuntu
+│       │   ├── opt
+│       │   │   └── telematics
+│       │   │       ├── config
+│       │   │       │   └── telematics.conf
+│       │   │       └── logs
+│       │   │           └── telematics.log
+│       │   └── var
+│       │       └── log
+│       │           └── syslog
+│       └── v2x
+│           ├── opt
+│           │   ├── ids_hids
+│           │   │   ├── alerts
+│           │   │   │   └── hids_alerts.json
+│           │   │   └── rules
+│           │   │       └── v2x_rules.xml
+│           │   ├── ids_reporter
+│           │   │   ├── alerts
+│           │   │   │   ├── alert_20241001_143000.json
+│           │   │   │   ├── alert_20241001_150000.json
+│           │   │   │   └── alert_20241001_153000.json
+│           │   │   ├── config
+│           │   │   │   └── reporter.conf
+│           │   │   └── logs
+│           │   │       └── reporter.log
+│           │   └── sovd_server
+│           │       ├── config
+│           │       │   └── sovd.yaml
+│           │       └── logs
+│           │           └── sovd_access.log
+│           └── var
+│               └── log
+│                   ├── auth.log
+│                   ├── messages
+│                   └── syslog
+└── posix_comms
+    ├── ecu1
+    │   └── var
+    │       └── log
+    │           └── application.log
+    ├── ecu2
+    │   └── var
+    │       └── log
+    │           └── application.log
+    ├── switch
+    │   ├── opt
+    │   │   ├── ids_nids
+    │   │   │   ├── alerts
+    │   │   │   │   └── nids_alerts.json
+    │   │   │   └── rules
+    │   │   │       └── switch_rules.xml
+    │   │   └── suricata
+    │   │       ├── captures
+    │   │       │   └── suspicious_20241001.pcap
+    │   │       ├── logs
+    │   │       │   ├── eve.json
+    │   │       │   ├── fast.log
+    │   │       │   └── stats.log
+    │   │       └── rules
+    │   │           ├── custom.rules
+    │   │           ├── emerging-threats.rules
+    │   │           └── local.rules
+    │   └── var
+    │       └── log
+    │           └── network.log
+    ├── ubuntu
+    │   ├── opt
+    │   │   └── telematics
+    │   │       ├── config
+    │   │       │   └── telematics.conf
+    │   │       └── logs
+    │   │           └── telematics.log
+    │   └── var
+    │       └── log
+    │           └── syslog
+    └── v2x
+        ├── opt
+        │   ├── ids_hids
+        │   │   ├── alerts
+        │   │   │   └── hids_alerts.json
+        │   │   └── rules
+        │   │       └── v2x_rules.xml
+        │   ├── ids_reporter
+        │   │   ├── alerts
+        │   │   │   ├── alert_20241001_143000.json
+        │   │   │   ├── alert_20241001_150000.json
+        │   │   │   └── alert_20241001_153000.json
+        │   │   ├── config
+        │   │   │   └── reporter.conf
+        │   │   └── logs
+        │   │       └── reporter.log
+        │   └── sovd_server
+        │       ├── config
+        │       │   └── sovd.yaml
+        │       └── logs
+        │           └── sovd_access.log
+        └── var
+            └── log
+                ├── auth.log
+                ├── messages
+                └── syslog
